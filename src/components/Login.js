@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
-
-export default class Login extends Component {
-  render() {
+import "../App.css";
+export default function Login() {
     return (
       <div>Login Page
-      
-      <Link to="/home"> Go to Home </Link>
-
+      <Link to="/home"> Go to Home </Link><br/>
+      <Link to="/recorder"> Go to Recorder </Link>
       </div>
     )
-  }
 }

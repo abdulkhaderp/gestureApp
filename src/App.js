@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router , Route,Redirect,Switch} from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
+import Recorder from './components/recorder';
 
 import './App.css';
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         <Switch>
           <Route path="/home" component={Home} exact/>
           <Route path="/login" component={Login} exact/>
+          <Route path="/recorder" component={Recorder} exact/>
         
           <Route path="" component={Login}  exact/>
 
@@ -24,6 +26,9 @@ class App extends Component {
           
         </Switch>
         {/* </ErrorBoundary> */}
+
+       
+
       </div>
     </Router>
     );
