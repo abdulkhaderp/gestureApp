@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
-
-export default class Login extends Component {
-  render() {
+import "../App.css";
+export default function Login() {
     return (
       <div>Login Page
       
@@ -12,7 +11,9 @@ export default class Login extends Component {
       <div>
       <Link to="/textToSpeech">Text To Speech</Link>
       </div>
+      <div>
+      <Link to="/recorder"> Go to Recorder </Link>
+      </div>
       </div>
     )
-  }
 }
