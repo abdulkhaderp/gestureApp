@@ -76,6 +76,7 @@ export default function useRecorder() {
           if (prevState.mediaRecorder)
             return {
               ...initialState,
+              test:blob,
               audio: window.URL.createObjectURL(blob),
             };
           else return initialState;
