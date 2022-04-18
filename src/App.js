@@ -4,6 +4,8 @@ import Home from './components/Home';
 import Login from './components/Login';
 import TextToSpeech from './components/TextToSpeech';
 import Recorder from './components/recorder';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import './App.css';
 class App extends Component {

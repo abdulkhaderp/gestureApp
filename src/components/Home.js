@@ -3,21 +3,22 @@ import React, { useRef, useState, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
+import { Link } from "react-router-dom";
 
-import {loveYouGesture} from "./../gestures/LoveYou"; 
-import {fullCloseGesture} from "./../gestures/FullClose";
+import { loveYouGesture } from "./../gestures/LoveYou";
+import { fullCloseGesture } from "./../gestures/FullClose";
 import { fullOpenGesture } from "./../gestures/FullOpen";
 
 import * as fp from "fingerpose";
 
-import {gestureData} from './../config';
+import { gestureData } from './../config';
 
 function Home() {
   const webcamRef = useRef(null);
 
   const [camStarted, setCamStarted] = useState(false);
-  const [recognisedGesture,setRecognisedGesture] = useState("")
-  const [isTraining, setIsTraining] =useState(true);
+  const [recognisedGesture, setRecognisedGesture] = useState("")
+  const [isTraining, setIsTraining] = useState(true);
   const runHandpose = async () => {
     const net = await handpose.load();
     setInterval(() => {
@@ -63,64 +64,72 @@ function Home() {
           const maxConfidence = confidence.indexOf(
             Math.max.apply(null, confidence)
           );
-         // console.log(confidence)
-         let matchWithHighScore = (Math.max(...confidence))
+          // console.log(confidence)
+          let matchWithHighScore = (Math.max(...confidence))
           // console.log(gesture.gestures[maxConfidence].name);
-         let result = gesture.gestures.filter(obj => {
+          let result = gesture.gestures.filter(obj => {
             return obj.confidence === matchWithHighScore
           })
           //console.log(result[0]);
-          if(matchWithHighScore > 7){
+          if (matchWithHighScore > 7) {
             setCamStarted(false)
             setRecognisedGesture(result[0].name);
             // When training :
-            if(isTraining)
+            if (isTraining)
               saveUserGesture(result[0].name);
             // When using :
             // retrieveUserGesture()
           }
-         
+
         }
       }
     }
   };
   const saveUserGesture = (name) => {
-      console.log(gestureData);
-      console.log(name);
-      localStorage.setItem(gestureData[name], "Hiye, sample question!" )
+    console.log(gestureData);
+    console.log(name);
+    localStorage.setItem(gestureData[name], "Hiye, sample question!")
   }
-  useEffect(()=>{runHandpose()},[]);
+  useEffect(() => { runHandpose() }, []);
 
   return (
-    <div className="App">
-      <header className="">
-        <h2>The Prototype!</h2>
-        <input type="button" value="START" onClick={()=>setCamStarted(true)}/>
-        <input type="button" value="STOP" onClick={()=>setCamStarted(false)}/>
-      </header>  
-      <div>
-       <h4>Gesture Identified : {recognisedGesture}</h4>
+    <>
+      <div className="App">
+        <header className="">
+          <h2>The Prototype!</h2>
+          <input type="button" value="START" onClick={() => setCamStarted(true)} />
+          <input type="button" value="STOP" onClick={() => setCamStarted(false)} />
+        </header>
+        <div>
+          <h4>Gesture Identified : {recognisedGesture}</h4>
+        </div>
+
+        {
+          camStarted ?
+            <div><Webcam
+              ref={webcamRef}
+              style={{
+                position: "absolute",
+                marginLeft: "auto",
+                marginRight: "auto",
+                left: 0,
+                right: 0,
+                textAlign: "center",
+                zindex: 9,
+                width: 640,
+                height: 480,
+              }}
+            /></div> : null
+        }
+        
+        <div>
+          <Link to="/textToSpeech">Text To Speech</Link>
+        </div>
+        <div>
+          <Link to="/recorder"> Go to Recorder </Link>
+        </div>
       </div>
-   
-    {
-      camStarted ? 
-        <div><Webcam
-        ref={webcamRef}
-        style={{
-          position: "absolute",
-          marginLeft: "auto",
-          marginRight: "auto",
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          zindex: 9,
-          width: 640,
-          height: 480,
-        }}
-      /></div> : null
-    }
-     
-    </div>
+    </>
   );
 }
 
