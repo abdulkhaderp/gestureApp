@@ -1,4 +1,4 @@
-body{
+body {
   overflow-x: hidden
 }
 
@@ -36,6 +36,7 @@ body{
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -76,4 +77,39 @@ body{
 .btn-facebook {
   color: white !important;
   background-color: #3b5998;
+}
+
+.header-row {
+  flex-basis: 100%;
+}
+
+.header-app-name {
+  color: #fff;
+  margin-left: 20px;
+  font-size: 28px;
+}
+
+.header-user-circle {
+  font-size: 36px;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.menu-block {
+  flex-basis: 100%;
+  margin-top: 40px !important;
+}
+
+.font-size-36px {
+  font-size: 36px;
+}
+
+.margin-top-40px {
+  margin-top: 40px !important;
+}
+
+.cell-boarder {
+  border: 1px solid #ccc
 }
