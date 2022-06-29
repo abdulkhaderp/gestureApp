@@ -133,4 +133,4 @@ function _Home() {
   );
 }
 
-export default Home;
+export default _Home;

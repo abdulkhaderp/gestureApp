@@ -6,6 +6,8 @@ import TextToSpeech from './components/TextToSpeech';
 import Recorder from './components/recorder';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import _Home from './components/_Home';
+
 
 import './App.css';
 class App extends Component {
@@ -23,7 +25,7 @@ class App extends Component {
           <Route path="/textToSpeech" component={TextToSpeech} exact/>
           <Route path="/login" component={Login} exact/>
           <Route path="/recorder" component={Recorder} exact/>
-        
+          <Route path="/gg" component={_Home} exact/>
           <Route path="" component={Login}  exact/>
 
           {/* <Route path="" component={Home}  exact/> */}
