@@ -96,12 +96,12 @@ function _Home() {
     <>
       <div className="App">
         <header className="">
-          <h2>The Prototype!</h2>
-          <input type="button" value="START" onClick={() => setCamStarted(true)} />
-          <input type="button" value="STOP" onClick={() => setCamStarted(false)} />
+          <legend>Record Your Gesture</legend>
+          <input type="button" class="btn btn-dark m-2" value="START" onClick={() => setCamStarted(true)} />
+          <input type="button" class="btn btn-danger" value="STOP" onClick={() => setCamStarted(false)} />
         </header>
         <div>
-          <h4>Gesture Identified : {recognisedGesture}</h4>
+         {recognisedGesture&& <h4>Gesture : {recognisedGesture}</h4>}
         </div>
 
         {
