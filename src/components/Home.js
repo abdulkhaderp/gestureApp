@@ -17,12 +17,15 @@ export default function Home() {
 
     const handleAddGesture = () => {
         setSpeakMode(false);
-        setaddGesture(true)
+        setaddGesture(true);
+        setListView(false);
+
     }
 
     const handleSpeak =()=>{
          setaddGesture(false);
         setSpeakMode(true);
+        setListView(false);
     }
 
     const handleChange = (e) => {
