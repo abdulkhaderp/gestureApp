@@ -12,7 +12,6 @@ export default function Home() {
     const [listView, setListView] = useState(false);
     const [addGesture, setaddGesture] = useState(false);
     const [speakMode, setSpeakMode] = useState(true);
-    const [GestureMessage, setGestureMessage] = useState({ message: ""})
     const [qSet, setQSet] = useState([]);
 
     const handleAddGesture = () => {
@@ -28,12 +27,7 @@ export default function Home() {
         setListView(false);
     }
 
-    const handleChange = (e) => {
-        setGestureMessage({ ...GestureMessage, [e.target.name]: e.target.value })
-      }
-      const onSubmit = () => {
-        console.log(GestureMessage);
-      }
+    
 
     const showList =()=>{
         setListView(true);
@@ -77,18 +71,10 @@ export default function Home() {
                             <_Home></_Home>
                         </div>
                     </div>
-                    <div className="col-8 p-4">
-                        <div class="form-group">
-                            <textarea class="form-control" name="message" onChange={handleChange} placeholder="Enter your Message" rows="3"></textarea>
-                        </div>
-                    </div>
+                    
 
                 </div>
-                    <div className="row justify-content-center">
-                        <div className="col-6 text-center">
-                            <button type="button" onClick={onSubmit} class="btn btn-success"><i className="fas fa-save"></i> Save</button>
-                        </div>
-                    </div>
+                    
                 </>}
 
                 { speakMode && <><div className="row justify-content-center">

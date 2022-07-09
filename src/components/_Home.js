@@ -19,6 +19,10 @@ function _Home() {
   const [camStarted, setCamStarted] = useState(false);
   const [recognisedGesture, setRecognisedGesture] = useState("")
   const [isTraining, setIsTraining] = useState(true);
+  const [GestureMessage, setGestureMessage] = useState({ message: ""})
+
+  const [gestureName , setGestureName] = useState("");
+
   const runHandpose = async () => {
     const net = await handpose.load();
     setInterval(() => {
@@ -74,9 +78,10 @@ function _Home() {
           if (matchWithHighScore > 7) {
             setCamStarted(false)
             setRecognisedGesture(result[0].name);
+            setGestureName(result[0].name);
             // When training :
-            if (isTraining)
-              saveUserGesture(result[0].name);
+            // if (isTraining)
+            //   saveUserGesture(result[0].name);
             // When using :
             // retrieveUserGesture()
           }
@@ -85,13 +90,23 @@ function _Home() {
       }
     }
   };
-  const saveUserGesture = (name) => {
-    console.log(gestureData);
-    console.log(name);
-    localStorage.setItem(gestureData[name], "Hiye, sample question!")
-  }
+  // const saveUserGesture = (name) => {
+  //   console.log(gestureData);
+  //   console.log(name);
+  //   localStorage.setItem(gestureData[name], "Hiye, sample question!")
+  // }
   useEffect(() => { runHandpose() }, []);
 
+  const handleChange = (e) => {
+    setGestureMessage({ ...GestureMessage, [e.target.name]: e.target.value })
+  }
+  
+  const onSubmit = () => {    
+    console.log(gestureName);
+    console.log(GestureMessage.message);
+    localStorage.setItem(gestureData[gestureName], GestureMessage.message);
+    alert("saved");
+  }
   return (
     <>
       <div className="App">
@@ -101,7 +116,21 @@ function _Home() {
           <input type="button" class="btn btn-danger" value="STOP" onClick={() => setCamStarted(false)} />
         </header>
         <div>
-         {recognisedGesture&& <h4>Gesture : {recognisedGesture}</h4>}
+         {recognisedGesture&&<><h4>Gesture : {recognisedGesture}</h4>
+         
+                  <div className="col-8 p-4">
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" onChange={handleChange} placeholder="Enter your Message" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center">
+                        <div className="col-6 text-center">
+                            <button type="button" onClick={onSubmit} class="btn btn-success"><i className="fas fa-save"></i> Save</button>
+                        </div>
+                    </div>
+                    </> 
+         
+         }
         </div>
 
         {
@@ -122,12 +151,12 @@ function _Home() {
             /></div> : null
         }
         
-        <div>
+        {/* <div>
           <Link to="/textToSpeech">Text To Speech</Link>
         </div>
         <div>
           <Link to="/recorder"> Go to Recorder </Link>
-        </div>
+        </div> */}
       </div>
     </>
   );
