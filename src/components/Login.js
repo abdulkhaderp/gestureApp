@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import "../App.css";
 import { useHistory } from "react-router-dom";
+import speakIcon from "../Assets/speakIcon.svg";
+
 
 export default function Login() {
   const history = useHistory();
+  const myForm = useRef({})
+
   const [loginData, setLoginData] = useState({ userName: "", password: "" })
 
   const handleChange = (e) => {
@@ -15,30 +19,27 @@ export default function Login() {
   }
 
   return (
-    <form className="overflow-hidden" onSubmit={onLoginSubmit}>
-      <div className="row ">
-        <div className="col-sm-6 col-md-4 col-lg-4 mx-auto mt-5">
-          <div className="card border-0 shadow rounded-3 my-5">
-            <div className="card-body p-4 p-sm-5">
-              <h5 className="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-              <form>
-                <div className="form-floating mb-3">
-                  <input type="text" name="userName" onChange={handleChange} className="form-control" id="floatingInput" placeholder="Enter username" required />
-                  <label for="floatingInput">User Name</label>
-                </div>
-                <div className="form-floating mb-3">
-                  <input type="text" name="password" onChange={handleChange} className="form-control" id="floatingPassword" placeholder="Enter Password" required />
-                  <label for="floatingPassword">Password</label>
-                </div>
-                <div className="d-grid">
-                  <button type="submit" className="btn btn-primary btn-login text-uppercase fw-bold">Sign
-                    in</button>
-                </div>
-              </form>
+    <div className="bg-login">
+      <h3 className="text-center mt-5 text-white"><i className="speak-icon"></i><strong>Speak Easy</strong></h3>
+      <div class="card fixed-bottom shadow login-card">
+        <div className="card-body p-4 p-sm-5 ">
+          <h3 className="card-title mb-4">Login</h3>
+          <form onSubmit={onLoginSubmit}  ref={myForm}>
+            <div className="form-floating mb-3">
+              <input type="text" name="userName" onChange={handleChange} className="form-control" id="floatingInput" placeholder="Enter username" required />
+              <label for="floatingInput">User Name</label>
             </div>
-          </div>
+            <div className="form-floating mb-3">
+              <input type="text" name="password" onChange={handleChange} className="form-control" id="floatingPassword" placeholder="Enter Password" required />
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div className="d-grid">
+            <button type="submit" className="btn btn-primary btn-login fw-bold">Submit</button>
+            <button type="reset" className="btn btn-outline-primary fw-bold mt-2">Cancel</button>
+            </div>
+          </form>
         </div>
       </div>
-    </form>
+    </div>
   )
 }

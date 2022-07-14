@@ -15,7 +15,7 @@ class App extends Component {
     return (
     <Router basename="/">
      
-     <div className="row app-wrapper overflow-hidden">
+     <div className="app-wrapper overflow-hidden">
         {/* <Loader/>
         <Error/>
         <CommonErrorPopup/>
