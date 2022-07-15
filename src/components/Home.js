@@ -103,7 +103,7 @@ export default function Home() {
                             {
                                 listView && <><div className="row justify-content-center">
                                     <div className="col-12">
-                                        {qSet.map((i) => {
+                                        {qSet.length?qSet.map((i) => {
                                             return (
                                                 <>
 
@@ -116,7 +116,7 @@ export default function Home() {
                                                     </div>
                                                 </>
                                             )
-                                        })}
+                                        }):<div className="text-center">No data to display</div>}
                                     </div>
 
 
