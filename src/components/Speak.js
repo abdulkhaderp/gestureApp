@@ -94,12 +94,18 @@ function Speak() {
 
   useEffect(() => { runHandpose() }, []);
   useEffect(() => {
+    if(recognisedGesture)
     playAudio();
   }, [recognisedGesture,qstn]);
 
 
   const playAudio = () => {
     speak({ text: qstn })
+  }
+
+  const reset = () => {
+    setCamStarted(true);
+    setRecognisedGesture("")
   }
   return (
     <>
@@ -109,7 +115,8 @@ function Speak() {
             <>
               <label>{'Gesture is ' + recognisedGesture}</label>
               <textarea placeholder="Enter your command" value={qstn} rows="3">{qstn}</textarea>
-              <button className='w-100 btn btn-lg btn-outline-primary' type="button" onClick={playAudio}>Play</button>
+              <button className='w-100 btn btn-lg btn-primary' type="button" onClick={playAudio}>Play</button>
+              <button className='w-100 btn btn-lg btn-outline-primary mt-2' type="button" onClick={reset}>Cancel</button>
             </>
           }
         </div>
