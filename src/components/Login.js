@@ -1,8 +1,6 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../App.css";
 import { useHistory } from "react-router-dom";
-import speakIcon from "../Assets/speakIcon.svg";
-
 
 export default function Login() {
   const history = useHistory();
@@ -24,7 +22,7 @@ export default function Login() {
       <div class="card fixed-bottom shadow login-card">
         <div className="card-body p-4 p-sm-5 ">
           <h3 className="card-title mb-4">Login</h3>
-          <form onSubmit={onLoginSubmit}  ref={myForm}>
+          <form onSubmit={onLoginSubmit} ref={myForm}>
             <div className="form-floating mb-3">
               <input type="text" name="userName" onChange={handleChange} className="form-control" id="floatingInput" placeholder="Enter username" required />
               <label for="floatingInput">User Name</label>
@@ -34,8 +32,8 @@ export default function Login() {
               <label for="floatingPassword">Password</label>
             </div>
             <div className="d-grid">
-            <button type="submit" className="btn btn-primary btn-login fw-bold">Submit</button>
-            <button type="reset" className="btn btn-outline-primary fw-bold mt-2">Cancel</button>
+              <button type="submit" className="btn btn-primary btn-login fw-bold">Submit</button>
+              <button type="reset" className="btn btn-outline-primary fw-bold mt-2">Cancel</button>
             </div>
           </form>
         </div>

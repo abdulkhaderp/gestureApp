@@ -18,7 +18,7 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 function Speak() {
   const webcamRef = useRef(null);
 
-  const {speak} = useSpeechSynthesis();
+  const { speak } = useSpeechSynthesis();
   const [camStarted, setCamStarted] = useState(true);
   const [recognisedGesture, setRecognisedGesture] = useState("")
   const [isTraining, setIsTraining] = useState(true);
@@ -94,39 +94,40 @@ function Speak() {
 
   useEffect(() => { runHandpose() }, []);
 
-  const playAudio=()=>{
-    speak({text:qstn})
+  const playAudio = () => {
+    speak({ text: qstn })
   }
   return (
     <>
-      <div className="App">
-        
-        <div>
-         {recognisedGesture&& 
+      <div className="row">
+        <div className="col-12">
+          {recognisedGesture &&
             <>
-            <h4>Gesture : {recognisedGesture}</h4>
-            <textarea value={qstn}>{qstn}</textarea>
-            <input className='btn btn-info'  type="button" onClick={playAudio} value="Play"></input>
+              <label>{'Gesture is ' + recognisedGesture}</label>
+              <textarea placeholder="Enter your command" value={qstn} rows="3">{qstn}</textarea>
+              <button className='w-100 btn btn-lg btn-outline-primary' type="button" onClick={playAudio}>Save</button>
             </>
-         }
+          }
         </div>
 
         {
           camStarted ?
-            <div><Webcam
-              ref={webcamRef}
-              style={{
-                position: "absolute",
-                marginLeft: "auto",
-                marginRight: "auto",
-                left: 0,
-                right: 0,
-                textAlign: "center",
-                zindex: 9,
-                width: 640,
-                height: 480,
-              }}
-            /></div> : null
+            <div>
+              <small><strong>Show your gesture against camera</strong></small>
+              <Webcam
+                ref={webcamRef}
+                style={{
+                  position: "absolute",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  left: 0,
+                  right: 0,
+                  textAlign: "center",
+                  zindex: 9,
+                  width: 640,
+                  height: 480,
+                }}
+              /></div> : null
         }
       </div>
     </>

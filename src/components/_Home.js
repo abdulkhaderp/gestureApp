@@ -16,12 +16,12 @@ import { gestureData } from '../config';
 function _Home() {
   const webcamRef = useRef(null);
 
-  const [camStarted, setCamStarted] = useState(false);
+  const [camStarted, setCamStarted] = useState(true);
   const [recognisedGesture, setRecognisedGesture] = useState("")
   const [isTraining, setIsTraining] = useState(true);
-  const [GestureMessage, setGestureMessage] = useState({ message: ""})
+  const [GestureMessage, setGestureMessage] = useState({ message: "" })
 
-  const [gestureName , setGestureName] = useState("");
+  const [gestureName, setGestureName] = useState("");
 
   const runHandpose = async () => {
     const net = await handpose.load();
@@ -100,8 +100,8 @@ function _Home() {
   const handleChange = (e) => {
     setGestureMessage({ ...GestureMessage, [e.target.name]: e.target.value })
   }
-  
-  const onSubmit = () => {    
+
+  const onSubmit = () => {
     console.log(gestureName);
     console.log(GestureMessage.message);
     localStorage.setItem(gestureData[gestureName], GestureMessage.message);
@@ -109,54 +109,38 @@ function _Home() {
   }
   return (
     <>
-      <div className="App">
-        <header className="">
-          <legend>Record Your Gesture</legend>
-          <input type="button" class="btn btn-dark m-2" value="START" onClick={() => setCamStarted(true)} />
-          <input type="button" class="btn btn-danger" value="STOP" onClick={() => setCamStarted(false)} />
-        </header>
+      <div >
         <div>
-         {recognisedGesture&&<><h4>Gesture : {recognisedGesture}</h4>
-         
-                  <div className="col-8 p-4">
-                        <div class="form-group">
-                            <textarea class="form-control" name="message" onChange={handleChange} placeholder="Enter your Message" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        <div className="col-6 text-center">
-                            <button type="button" onClick={onSubmit} class="btn btn-success"><i className="fas fa-save"></i> Save</button>
-                        </div>
-                    </div>
-                    </> 
-         
-         }
+
+          {recognisedGesture && <>
+            <div className="col-12">
+              <div class="form-group pb-3">
+              <label>Gesture is {recognisedGesture}</label>
+                <textarea class="form-control" name="message" onChange={handleChange} placeholder="Enter your command" rows="3"></textarea>
+              </div>
+              <button type="button" onClick={onSubmit} class="w-100 btn btn-lg btn-outline-primary">Save</button>
+            </div>
+          </>
+
+          }
+
         </div>
 
         {
           camStarted ?
-            <div><Webcam
-              ref={webcamRef}
-              style={{
-                position: "absolute",
-                marginLeft: "auto",
-                marginRight: "auto",
-                left: 0,
-                right: 0,
-                textAlign: "center",
-                zindex: 9,
-                width: 640,
-                height: 480,
-              }}
-            /></div> : null
+          <>
+            <small><strong>Show your gesture against camera</strong></small>
+
+            <div><Webcam ref={webcamRef} /></div>
+            <div className="text-center pt-4">
+              <button type="button" class="btn btn-danger" onClick={() => setCamStarted(false)}><i class="fa fa-stop"></i></button>
+            </div></>:
+            <div className="text-center pt-4">
+            {!recognisedGesture&&<button type="button" class="btn btn-primary" onClick={() => setCamStarted(true)}><i class="fa fa-play"></i> Start</button>}
+          </div>
+
         }
-        
-        {/* <div>
-          <Link to="/textToSpeech">Text To Speech</Link>
-        </div>
-        <div>
-          <Link to="/recorder"> Go to Recorder </Link>
-        </div> */}
+
       </div>
     </>
   );

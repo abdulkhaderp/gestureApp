@@ -1,37 +1,17 @@
 import React, { Component } from "react";
 import "../App.css";
+import { Link } from "react-router-dom";
+
 
 class Header extends Component {
-  render(){
-      return(
-        <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div className="container-fluid">
-          <div className="row header-row">
-            <div className="col-10">
-              <h1 className="header-app-name">App Name</h1>
-            </div>
-  
-            <div className="col-1">
-              <a className="navbar-brand" href="#">
-                <i className="fas fa-user-circle header-user-circle"></i>
-              </a>
-            </div>
-  
-            <div className="col-1">
-              <button
-                className="navbar-toggler"
-                style={{display: "inline"}}
-                type="button"
-                aria-controls="navbarToggleExternalContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-      );
+
+  render() {
+    return (
+      <div className="d-flex justify-content-between text-white p-3">
+        <div><b><i class="fa fa-solid fa-bars"></i>&nbsp;&nbsp;Speak Easy</b></div>
+        <Link to="/login"><div className="text-white"><b><i class="fas fa-sign-out-alt"></i></b></div></Link>
+      </div>
+    );
   }
 }
 export default Header;
