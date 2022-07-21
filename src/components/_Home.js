@@ -13,7 +13,7 @@ import * as fp from "fingerpose";
 
 import { gestureData } from '../config';
 
-function _Home() {
+function _Home({showList}) {
   const webcamRef = useRef(null);
 
   const [camStarted, setCamStarted] = useState(true);
@@ -106,7 +106,15 @@ function _Home() {
     console.log(GestureMessage.message);
     localStorage.setItem(gestureData[gestureName], GestureMessage.message);
     alert("saved");
+    showList()
   }
+  const reset = () => {
+    setCamStarted(true)
+    setGestureMessage("");
+    setRecognisedGesture("");
+    setGestureName("");
+  }
+
   return (
     <>
       <div >
@@ -115,10 +123,11 @@ function _Home() {
           {recognisedGesture && <>
             <div className="col-12">
               <div class="form-group pb-3">
-              <label>Gesture is {recognisedGesture}</label>
+                <label>Gesture is {recognisedGesture}</label>
                 <textarea class="form-control" name="message" onChange={handleChange} placeholder="Enter your command" rows="3"></textarea>
               </div>
-              <button type="button" onClick={onSubmit} class="w-100 btn btn-lg btn-outline-primary">Save</button>
+              <button type="button" onClick={onSubmit} class="w-100 btn btn-lg btn-primary mb-2">Save</button>
+              <button type="button" onClick={reset} class="w-100 btn btn-lg btn-outline-primary">Cancel</button>
             </div>
           </>
 
@@ -128,16 +137,34 @@ function _Home() {
 
         {
           camStarted ?
-          <>
-            <small><strong>Show your gesture against camera</strong></small>
+            <>
+              <small><strong>Show your gesture against camera</strong></small>
 
-            <div><Webcam ref={webcamRef} /></div>
+              <div className="text-center"><Webcam r ref={webcamRef}
+                style={{
+                  // position: "absolute",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  left: 0,
+                  right: 0,
+                  textAlign: "center",
+                  zindex: 9,
+                  width: 640,
+                  height: 480,
+                }} />
+              <button class="btn btn-primary mt-2" type="button" disabled>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  &nbsp;Capturing...
+                </button>
+              </div>
+              <div className="text-center pt-4">
+                <button type="button" class="btn btn-danger" onClick={() => setCamStarted(false)}><i class="fa fa-stop"></i></button>
+              </div></> :
             <div className="text-center pt-4">
-              <button type="button" class="btn btn-danger" onClick={() => setCamStarted(false)}><i class="fa fa-stop"></i></button>
-            </div></>:
-            <div className="text-center pt-4">
-            {!recognisedGesture&&<button type="button" class="btn btn-primary" onClick={() => setCamStarted(true)}><i class="fa fa-play"></i> Start</button>}
-          </div>
+              {!recognisedGesture && <button type="button" class="btn btn-primary" onClick={() => setCamStarted(true)}><i class="fa fa-play"></i> Start</button>}
+            </div>
 
         }
 

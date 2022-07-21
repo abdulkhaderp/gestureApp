@@ -94,9 +94,9 @@ function Speak() {
 
   useEffect(() => { runHandpose() }, []);
   useEffect(() => {
-    if(recognisedGesture)
-    playAudio();
-  }, [recognisedGesture,qstn]);
+    if (recognisedGesture)
+      playAudio();
+  }, [recognisedGesture, qstn]);
 
 
   const playAudio = () => {
@@ -123,12 +123,12 @@ function Speak() {
 
         {
           camStarted ?
-            <div>
+            <div className="text-center">
               <small><strong>Show your gesture against camera</strong></small>
               <Webcam
                 ref={webcamRef}
                 style={{
-                  position: "absolute",
+                  // position: "absolute",
                   marginLeft: "auto",
                   marginRight: "auto",
                   left: 0,
@@ -138,7 +138,14 @@ function Speak() {
                   width: 640,
                   height: 480,
                 }}
-              /></div> : null
+              />
+              <button class="btn btn-primary mt-2" type="button" disabled>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                &nbsp;Processing...
+              </button>
+            </div> : null
         }
       </div>
     </>

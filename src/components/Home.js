@@ -86,7 +86,7 @@ export default function Home() {
                         </div>
                         <div className="container mt-4">
                             {addGesture && <><div className="row justify-content-center">
-                                <_Home></_Home>
+                                <_Home showList={showList}></_Home>
                             </div>
                             </>}
 
