@@ -56,7 +56,7 @@ export default function Home() {
     return (
         <>
             <div className="bg-login">
-                <Header></Header>
+                <Header handleSpeak={handleSpeak}></Header>
 
                 <div class="card h-100 home-card">
                     <div class="card-body">
@@ -92,7 +92,7 @@ export default function Home() {
 
                             {speakMode && <><div className="row justify-content-start">
                                 <div className="col-md-12">
-                                    <Speak></Speak>
+                                    <Speak handleAddGesture={handleAddGesture}></Speak>
                                 </div>
 
 

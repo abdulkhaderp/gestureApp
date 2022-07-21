@@ -15,7 +15,7 @@ import { gestureData } from '../config';
 import { useSpeechSynthesis } from 'react-speech-kit';
 
 
-function Speak() {
+function Speak({ handleAddGesture }) {
   const webcamRef = useRef(null);
 
   const { speak } = useSpeechSynthesis();
@@ -94,8 +94,14 @@ function Speak() {
 
   useEffect(() => { runHandpose() }, []);
   useEffect(() => {
-    if (recognisedGesture)
+    if (recognisedGesture && qstn) {
       playAudio();
+    }
+    else {
+      speak({ text: "Please add a command to this Gesture" })
+
+    }
+
   }, [recognisedGesture, qstn]);
 
 
@@ -107,17 +113,30 @@ function Speak() {
     setCamStarted(true);
     setRecognisedGesture("")
   }
+
+  const goToRecord = () => {
+    handleAddGesture()
+  }
   return (
     <>
       <div className="row">
         <div className="col-12">
-          {recognisedGesture &&
+          {(recognisedGesture && qstn) ?
             <>
               <label>{'Gesture is ' + recognisedGesture}</label>
               <textarea placeholder="Enter your command" value={qstn} rows="3">{qstn}</textarea>
               <button className='w-100 btn btn-lg btn-primary' type="button" onClick={playAudio}>Play</button>
               <button className='w-100 btn btn-lg btn-outline-primary mt-2' type="button" onClick={reset}>Cancel</button>
-            </>
+            </> :
+            <div>
+             {recognisedGesture&& 
+             <div>
+              <label>{'Gesture is ' + recognisedGesture}</label>
+              <button className='w-100 btn btn-lg btn-outline-primary mt-2' type="button" onClick={goToRecord}>ADD COMMAND</button>
+             </div>
+             }
+            </div>
+
           }
         </div>
 
@@ -140,9 +159,9 @@ function Speak() {
                 }}
               />
               <button class="btn btn-primary mt-2" type="button" disabled>
-              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                 &nbsp;Processing...
               </button>
             </div> : null
