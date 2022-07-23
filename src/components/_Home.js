@@ -13,13 +13,14 @@ import * as fp from "fingerpose";
 
 import { gestureData } from '../config';
 
-function _Home({showList}) {
+function _Home({ showList,close,openAlert }) {
   const webcamRef = useRef(null);
 
   const [camStarted, setCamStarted] = useState(true);
   const [recognisedGesture, setRecognisedGesture] = useState("")
   const [isTraining, setIsTraining] = useState(true);
   const [GestureMessage, setGestureMessage] = useState({ message: "" })
+
 
   const [gestureName, setGestureName] = useState("");
 
@@ -105,9 +106,15 @@ function _Home({showList}) {
     console.log(gestureName);
     console.log(GestureMessage.message);
     localStorage.setItem(gestureData[gestureName], GestureMessage.message);
-    alert("saved");
+    openAlert();
     showList()
   }
+
+  const closeAlert=()=>{
+    close();
+  }
+
+  
   const reset = () => {
     setCamStarted(true)
     setGestureMessage("");
@@ -152,7 +159,7 @@ function _Home({showList}) {
                   width: 640,
                   height: 480,
                 }} />
-              <button class="btn btn-primary mt-2" type="button" disabled>
+                <button class="btn btn-primary mt-2" type="button" disabled>
                   <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                   <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                   <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>

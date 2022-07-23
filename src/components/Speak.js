@@ -97,10 +97,6 @@ function Speak({ handleAddGesture }) {
     if (recognisedGesture && qstn) {
       playAudio();
     }
-    else {
-      speak({ text: "Please add a command to this Gesture" })
-
-    }
 
   }, [recognisedGesture, qstn]);
 
@@ -111,7 +107,8 @@ function Speak({ handleAddGesture }) {
 
   const reset = () => {
     setCamStarted(true);
-    setRecognisedGesture("")
+    setRecognisedGesture("");
+    setQstn("")
   }
 
   const goToRecord = () => {
@@ -124,8 +121,8 @@ function Speak({ handleAddGesture }) {
           {(recognisedGesture && qstn) ?
             <>
               <label>{'Gesture is ' + recognisedGesture}</label>
-              <textarea placeholder="Enter your command" value={qstn} rows="3">{qstn}</textarea>
-              <button className='w-100 btn btn-lg btn-primary' type="button" onClick={playAudio}>Play</button>
+              <textarea placeholder="Enter your command" value={qstn} rows="3" readOnly={qstn}>{qstn}</textarea>
+              <button className='w-100 btn btn-lg btn-primary' type="button" onClick={playAudio}>Play Again</button>
               <button className='w-100 btn btn-lg btn-outline-primary mt-2' type="button" onClick={reset}>Cancel</button>
             </> :
             <div>

@@ -13,6 +13,8 @@ export default function Home() {
     const [addGesture, setaddGesture] = useState(false);
     const [speakMode, setSpeakMode] = useState(true);
     const [qSet, setQSet] = useState([]);
+    const [alert, setAlert] = useState(false);
+
 
     const handleAddGesture = () => {
         setSpeakMode(false);
@@ -53,12 +55,31 @@ export default function Home() {
         speak({ text: i })
     }
 
+    const openAlert = () => {
+        setAlert(true);
+        setTimeout(() => {
+            close()
+        }, 2000);
+    }
+
+    const close = () => {
+        setAlert(false);
+    }
+
     return (
         <>
+
             <div className="bg-login">
+
                 <Header handleSpeak={handleSpeak}></Header>
 
                 <div class="card h-100 home-card">
+                    {alert && <div className="m-2">
+                        <div class="alert alert-success text-center d-flex justify-content-around" role="alert">
+                        <b>Command Added Successfully.</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>}
                     <div class="card-body">
                         <div className="d-flex justify-content-around mt-4 pb-4">
                             <div className="d-flex flex-column" onClick={handleSpeak}>
@@ -86,7 +107,7 @@ export default function Home() {
                         </div>
                         <div className="container mt-4">
                             {addGesture && <><div className="row justify-content-center">
-                                <_Home showList={showList}></_Home>
+                                <_Home close={close} openAlert={openAlert} showList={showList}></_Home>
                             </div>
                             </>}
 
@@ -103,7 +124,7 @@ export default function Home() {
                             {
                                 listView && <><div className="row justify-content-center">
                                     <div className="col-12">
-                                        {qSet.length?qSet.map((i) => {
+                                        {qSet.length ? qSet.map((i) => {
                                             return (
                                                 <>
 
@@ -116,7 +137,7 @@ export default function Home() {
                                                     </div>
                                                 </>
                                             )
-                                        }):<div className="text-center">No data to display</div>}
+                                        }) : <div className="text-center">No data to display</div>}
                                     </div>
 
 
